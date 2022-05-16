@@ -53,7 +53,7 @@ g.set_names('x', 'model', 'y', 'state accuracy', 'color', 'exploration type')
 g.set_order_options('x', {'Spectator', 'Actor', 'LTS', 'TS'})
 g.geom_hline('yintercept', 1);
 g.axe_property('ylim', [0.3 1]);
-g.geom_hline('yintercept', 0.5);
+g.geom_hline('yintercept', 1/3);
 g.draw()
 for c=1:length(unique(color))
     for m=1:length(g.results.stat_violin(1).fill_handle)
@@ -112,7 +112,7 @@ modelnames={'Spectator', 'Actor', 'LTS', 'TS'};
 
 % median split based on diagnostic choice (note that split for participants
 % above or below 50% of diagnostic choice leads to the same result)
-color=1+(mean_diagnostic_choice>median(mean_diagnostic_choice));
+color=1+(mean_diagnostic_choice>=median(mean_diagnostic_choice));
 condnames={'random', 'diagnostic'};
 color=condnames(color);
 x=modelnames(attrib);
@@ -135,7 +135,7 @@ for c=1:length(unique(color))
 end
 
 %
-figure('name', 'Fig. S4b - state accuracy simulated', 'position',  [978   436   560   356]);
+figure('name', 'Fig. S4b - state accuracy empirical', 'position',  [978   436   560   356]);
 g=gramm('x', x(:), 'y', acc_pred(:), 'color', color(:), 'subset', ~ismember(x(:), 'LTS'));
 g.stat_violin('normalization', 'width', 'width', 0.7, 'dodge', 0.7);
 g.stat_summary('type', 'bootci', 'geom','point', 'dodge', 0.7, 'width', 0.7);
@@ -143,7 +143,7 @@ g.set_names('x', 'model', 'y', 'state accuracy', 'color', 'exploration type')
 g.set_order_options('x', {'Spectator', 'Actor', 'LTS', 'TS'})
 g.geom_hline('yintercept', 1);
 g.axe_property('ylim', [0.3 1]);
-g.geom_hline('yintercept', 0.5);
+g.geom_hline('yintercept', 1/3);
 g.draw()
 for c=1:length(unique(color))
     for m=1:length(g.results.stat_violin(1).fill_handle)
